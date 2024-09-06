@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "react-native-crash-app",
-    "slug": "react-native-crash-app",
+    "name": "Aora",
+    "slug": "aora",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "aora",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -23,7 +23,7 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "static",
+      "output": "static", 
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [

@@ -20,7 +20,7 @@ export default function HomeScreen() {
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText type="subtitle">Step 657u7: Try it</ThemedText>
         <ThemedText>
           Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
           Press{' '}
@@ -68,3 +68,23 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+
+
+/*import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Slot } from 'expo-router';
+
+const RootLayout = () => {
+  return (
+    <>
+    <Text>Header</Text>
+       <slot/>
+       <Text>Footer</Text>
+    </>
+   
+  );
+}
+
+export default RootLayout;*/
+
+
