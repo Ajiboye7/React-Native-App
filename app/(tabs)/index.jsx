@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
+import Test from './Test'
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>How are you?</Text>
+      <Test/>
     </View>
   );
 }
