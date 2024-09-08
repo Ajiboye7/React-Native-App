@@ -6,7 +6,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <Text style={styles.text}>How are you?</Text>
       <Test/>
-      <Link href="/Test" style={{color: 'blue'}}>Go to profile</Link>
+      <Link href="/profile" style={{color: 'blue'}}>Go to profile</Link>
     </View>
   );
 }

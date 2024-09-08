@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { Component } from 'react';
+import { Text, View } from 'react-native';
 
-const test = () => {
-  return (
-    <View>
-      <Text>test</Text>
-    </View>
-  )
+export class test extends Component {
+  render() {
+    return (
+      <View>
+        <Text> textInComponent </Text>
+      </View>
+    );
+  }
 }
 
-export default test
-
-const styles = StyleSheet.create({})
+export default test;
