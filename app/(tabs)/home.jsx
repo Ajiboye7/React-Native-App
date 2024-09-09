@@ -4,7 +4,7 @@ import React from 'react'
 const Home = () => {
   return (
     <View>
-      <Text>Home</Text>
+     <Text className="text-3xl mb-10 font-extrabold text-white">This is Home page</Text>
     </View>
   )
 }
