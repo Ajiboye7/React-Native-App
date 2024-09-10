@@ -52,6 +52,7 @@ export default function TabLayout() {
               color={color}
               name="Home"
               focused={focused}
+              
             />
           ),
         }}
