@@ -4,7 +4,7 @@ import React from 'react'
 const create = () => {
   return (
     <View>
-      <Text>create</Text>
+      <Text className="text-3xl mb-10 font-extrabold text-white flex items-center justify-center">This is Create page</Text>
     </View>
   )
 }
