@@ -8,7 +8,6 @@ const AuthLayout = () => {
     </View>
   )
 }
-
 export default AuthLayout
 
 const styles = StyleSheet.create({})
