@@ -12,16 +12,15 @@ const SignIn = () => {
     password:''
   })
 
-  const submit =()=>{
-
-  }
+  const submit =()=>{}
+  
   const [isSubmitting, setIsSubmitting] = useState(false)
 
 
   return (
     <SafeAreaView className="bg-primary h-full px-3">
        <ScrollView>
-        <View className="w-full justify-center h-full">
+        <View className="w-full justify-center min-h-[85vh]">
         <Image
           source={images.logo}
           resizeMode='container'
