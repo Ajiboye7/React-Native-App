@@ -1,7 +1,7 @@
 import { Client, Account,ID } from "react-native-appwrite";
 
 export const Config = {
-  endpoint: "http://cloud.appwrite.io/v1",
+  endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.ajiboyedev.aora",
   projectId: "66e168a900130ea9ac05",
   databaseId: "66e16c380011e90b87d8",
