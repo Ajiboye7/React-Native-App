@@ -12,6 +12,7 @@ export const Config = {
 
 // Init React Native SDK
 const client = new Client();
+
 client
   .setEndpoint(Config.endpoint)
   .setProject(Config.projectId)
@@ -31,3 +32,18 @@ export const createUser = () => {
     }
   );
 };
+
+
+/*
+export const createUser = (email, password, username) => {
+  account.create(ID.unique(), email, password, username).then(
+    function (response) {
+      console.log(response);
+    },
+    function (error) {
+      console.log(error);
+    }
+  );
+};
+
+ */
