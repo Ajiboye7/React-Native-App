@@ -18,3 +18,14 @@ client
     .setProject(Config.projectId) 
     .setPlatform(Config.platform)
 ;
+
+
+const account = new Account(client);
+
+// Register User
+account.create(ID.unique(), 'me@example.com', 'password', 'Jane Doe')
+    .then(function (response) {
+        console.log(response);
+    }, function (error) {
+        console.log(error);
+    });
