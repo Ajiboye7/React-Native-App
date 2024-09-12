@@ -33,11 +33,12 @@ export const createUser = async (email, password, username) => {
     if(!newAccount) throw Error
 
     const avatarUrl = avatars.getInitials(username)
-    await SignIn(email,password);
+
+    await SignIn(email,password)
 
     const newUser = await databases.createDocument(
         Config.databaseId,
-        config.userCollectionId,
+        Config.userCollectionId,
         ID.unique(),
         {
             accountId: newAccount.$id,
@@ -45,10 +46,8 @@ export const createUser = async (email, password, username) => {
             username,
             avatar:avatarUrl
         }
-
     )
-
-
+    return newUser
   }catch(error){
     console.log(error);
     throw new Error(error)
@@ -59,7 +58,6 @@ export const createUser = async (email, password, username) => {
 export const signIn = async (email, password)=>{
     try{
         const session = await account.createEmailSession(email, password)
-
         return session
     }catch(error){
         console.log(error)

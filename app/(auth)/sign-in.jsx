@@ -1,5 +1,5 @@
 import { Text, View,Image,ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import  {React, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {images} from "../../constants"
 import FormField from '../../components/FormField'
@@ -12,7 +12,8 @@ const SignIn = () => {
     password:''
   })
 
-  const submit =()=>{}
+  const submit =()=>{
+  }
   
   const [isSubmitting, setIsSubmitting] = useState(false)
 
