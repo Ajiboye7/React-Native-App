@@ -13,11 +13,10 @@ export const Config = {
 // Init React Native SDK
 const client = new Client();
 
-client 
+client
   .setEndpoint(Config.endpoint)
   .setProject(Config.projectId)
   .setPlatform(Config.platform);
-
 
 const account = new Account(client);
 const avatars = new Avatars(client);
@@ -32,13 +31,13 @@ export const createUser = async (email, password, username) => {
     const avatarUrl = avatars.getInitials(username);
     await signIn(email, password); // Ensure `signIn` function is used correctly
 
-    // Correct the field name to `accountId`
+    // Ensure "accountId" is correctly spelled
     const newUser = await databases.createDocument(
       Config.databaseId,
       Config.userCollectionId,
       ID.unique(),
       {
-        accountId: newAccount.$id, // Correct field name here
+        accountId: newAccount.$id, // Correct spelling here
         email,
         username,
         avatar: avatarUrl
