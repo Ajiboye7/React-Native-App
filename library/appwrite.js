@@ -1,6 +1,4 @@
 import { Client, Account, Avatars, ID, Databases } from "react-native-appwrite";
-import SignIn from "../app/(auth)/sign-in";
-
 
 export const Config = {
   endpoint: "https://cloud.appwrite.io/v1",
@@ -19,48 +17,47 @@ client
   .setEndpoint(Config.endpoint)
   .setProject(Config.projectId)
   .setPlatform(Config.platform);
-  
+
 
 const account = new Account(client);
-const avatars = new Avatars(client)
-const databases = new Databases(client)
-
+const avatars = new Avatars(client);
+const databases = new Databases(client);
 
 export const createUser = async (email, password, username) => {
-  try{
-    const newAccount = await account.create(ID.unique(), email, password, username)
+  try {
+    const newAccount = await account.create(ID.unique(), email, password, username);
 
-    if(!newAccount) throw Error
+    if (!newAccount) throw new Error("Account creation failed");
 
-    const avatarUrl = avatars.getInitials(username)
+    const avatarUrl = avatars.getInitials(username);
+    await signIn(email, password); // Ensure `signIn` function is used correctly
 
-    await SignIn(email,password)
-
+    // Correct the field name to `accountId`
     const newUser = await databases.createDocument(
-        Config.databaseId,
-        Config.userCollectionId,
-        ID.unique(),
-        {
-            accountId: newAccount.$id,
-            email,
-            username,
-            avatar:avatarUrl
-        }
-    )
-    return newUser
-  }catch(error){
+      Config.databaseId,
+      Config.userCollectionId,
+      ID.unique(),
+      {
+        accountId: newAccount.$id, // Correct field name here
+        email,
+        username,
+        avatar: avatarUrl
+      }
+    );
+
+    return newUser;
+  } catch (error) {
     console.log(error);
-    throw new Error(error)
+    throw new Error(error.message);
   }
 };
 
- 
-export const signIn = async (email, password)=>{
-    try{
-        const session = await account.createEmailSession(email, password)
-        return session
-    }catch(error){
-        console.log(error)
-        throw new Error(error)
-    }
-}
+export const signIn = async (email, password) => {
+  try {
+    const session = await account.createEmailPasswordSession(email, password);
+    return session;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
