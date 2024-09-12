@@ -19,15 +19,7 @@ client
   .setPlatform(Config.platform);
 
 const account = new Account(client);
-const avatars = new Avatars(client);
-const databases = new Databases(client);
-
-export const createUser = async (email, password, username) => {
-  try {
-    const newAccount = await account.create(ID.unique(), email, password, username);
-
-    if (!newAccount) throw new Error("Account creation failed");
-
+const avata
     const avatarUrl = avatars.getInitials(username);
     await signIn(email, password); // Ensure `signIn` function is used correctly
 
