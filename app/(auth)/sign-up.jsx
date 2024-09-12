@@ -42,7 +42,7 @@ const SignUp = () => {
 
         <FormField
           title="Email"
-          value={form.email}
+          value={form.email} 
           handleChangeText={(e)=>setForm({...form, email:e})}
           otherStyles="mt-7"
           keyboardType= "email-address"

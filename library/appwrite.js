@@ -1,5 +1,6 @@
 import { Client, Account,ID } from "react-native-appwrite";
 
+
 export const Config = {
   endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.ajiboyedev.aora",
@@ -13,14 +14,14 @@ export const Config = {
 // Init React Native SDK
 const client = new Client();
 
-client
+client 
   .setEndpoint(Config.endpoint)
   .setProject(Config.projectId)
   .setPlatform(Config.platform);
   
 
-
 const account = new Account(client);
+
 
 export const createUser = () => {
   account.create(ID.unique(), "me@example.com", "password", "Jane Doe").then(
