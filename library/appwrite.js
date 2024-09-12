@@ -51,4 +51,12 @@ export const createUser = async (email, password, username) => {
   }
 };
 
-export const signIn = async (em
+export const signIn = async (email, password) => {
+  try {
+    const session = await account.createEmailPasswordSession(email, password);
+    return session;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
