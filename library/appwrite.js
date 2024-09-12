@@ -37,7 +37,7 @@ export const createUser = async (email, password, username) => {
       Config.userCollectionId,
       ID.unique(),
       {
-        accountId: newAccount.$id, // Correct spelling here
+        accoundId: newAccount.$id, // Correct spelling here
         email,
         username,
         avatar: avatarUrl
