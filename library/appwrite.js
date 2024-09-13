@@ -29,15 +29,14 @@ export const createUser = async (email, password, username) => {
     if (!newAccount) throw new Error("Account creation failed");
 
     const avatarUrl = avatars.getInitials(username);
-    await signIn(email, password); // Ensure `signIn` function is used correctly
+    await signIn(email, password); 
 
-    // Ensure "accountId" is correctly spelled
     const newUser = await databases.createDocument(
       Config.databaseId,
       Config.userCollectionId,
       ID.unique(),
       {
-        accoundId: newAccount.$id, // Correct spelling here
+        accoundId: newAccount.$id, 
         email,
         username,
         avatar: avatarUrl

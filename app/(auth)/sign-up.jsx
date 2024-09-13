@@ -18,7 +18,9 @@ const SignUp = () => {
   const submit = async ()=>{
     if(!form.email || !form.password || !form.username){
       Alert.alert('Error', "please fill in all the fields")
+      return;
     }
+
     setIsSubmitting(true);
 
     try{
@@ -26,7 +28,7 @@ const SignUp = () => {
 
       //set to global state
 
-      router.replace('/home')
+      router.replace('/home');
     }catch(error){
       Alert.alert('Error', error.message)
     }finally{
