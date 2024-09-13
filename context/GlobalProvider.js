@@ -28,7 +28,7 @@ export const GlobalProvider = ({ children }) => {
         setUser(null); 
       })
       .finally(() => {
-        setIsLoading(false); // Ensure loading is false once data is fetched or an error occurs
+        setIsLoading(false); 
       });
   }, []);
 
