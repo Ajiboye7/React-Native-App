@@ -10,6 +10,7 @@ import { useGlobalContext } from "@/context/GlobalProvider";
 
 export default function HomeScreen() {
   const {isLoading, isLoggedIn} = useGlobalContext
+  
   if(!isLoading && isLoggedIn) return <Redirect href="/home"/>
   return (
     <SafeAreaView className="bg-primary h-full">

@@ -40,7 +40,8 @@ export const GlobalProvider = ({ children }) => {
     isLoggedIn,
     user,
     setIsLoading,
-    setUser
+    setUser,
+    setIsLoggedIn
   }}>
   {children}
   </GlobalContext.Provider>;
