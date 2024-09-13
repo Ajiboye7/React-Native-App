@@ -5,8 +5,13 @@ import CustomButton from "../components/CustomButton";
 import { StatusBar } from "expo-status-bar";
 import { Redirect, router } from "expo-router";
 
+import { useGlobalContext } from "@/context/GlobalProvider";
+import { isLoading } from "expo-font";
+
 
 export default function HomeScreen() {
+  const {isLoading, isLoggedIn} = useGlobalContext
+  if(!isLoading && isLoggedIn) return <Redirect href="/home"/>
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
@@ -15,7 +20,7 @@ export default function HomeScreen() {
             source={images.logo}
             className="w-[130px] h-[84px]"
             resizeMode="contain"
-          />
+          />  
           <Image
             source={images.cards} 
             className="max-w-[380px] w-full h-[300px]"

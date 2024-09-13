@@ -1,4 +1,4 @@
-import { Client, Account, Avatars, ID, Databases } from "react-native-appwrite";
+import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
 
 export const Config = {
   endpoint: "https://cloud.appwrite.io/v1",
@@ -52,7 +52,6 @@ export const createUser = async (email, password, username) => {
 
 export const signIn = async (email, password) => {
   try {
-    
     const session = await account.createEmailPasswordSession(email, password);
     return session;
   } catch (error) {
@@ -62,29 +61,22 @@ export const signIn = async (email, password) => {
 };
 
 
+export const getCurrentUser =async ()=>{
+    try{
+        const currentAccount = await account.get()
 
+        if(!currentAccount) throw Error
 
+        const currentUser = await databases.listDocuments(
+            Config.databaseId,
+            Config.userCollectionId,
+            [Query.equal('accoundId', currentAccount.$id)]
+        )
 
-/*
-export const signIn = async (email, password) => {
-  try {
-    // First, check if there is already an active session
-    const sessions = await account.listSessions();
-
-    if (sessions.total > 0) {
-      console.log("An active session already exists.");
-      // Optionally, you can log out the user here if you want to clear the session
-      // await account.deleteSession(sessions.sessions[0].$id);
-      return sessions;
+        if(!currentUser) throw Error
+        
+        return currentUser.documents[0]
+    }catch(error){
+        console.log(error)
     }
-
-    // If no active session, create a new session
-    const session = await account.createEmailPasswordSession(email, password);
-    return session;
-  } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
-  }
-};
-
- */
+}
