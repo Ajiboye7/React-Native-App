@@ -27,7 +27,6 @@ const SignUp = () => {
 
     try {
       const result = await createUser(form.email, form.password, form.username);
-      await AsyncStorage.setItem('userSession', JSON.stringify(result));
       setUser(result);
       setIsLoggedIn(true);
 
