@@ -6,6 +6,7 @@ import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { Link, router } from "expo-router";
 import { createUser } from "../../library/appwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -14,6 +15,8 @@ const SignUp = () => {
     username: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setUser, setIsLoggedIn } = useGlobalContext();
+  
 
   const submit = async () => {
     if (form.email === "" || form.password === "" || form.username === "") {
@@ -42,7 +45,7 @@ const SignUp = () => {
         <View className="w-full justify-center min-h-[85vh]">
           <Image
             source={images.logo}
-            resizeMode="container"
+            resizeMode="contain"
             className="w-[115px] h-[35px]"
           />
           <Text className="text-2xl text-white font-psemibold mt-10">
