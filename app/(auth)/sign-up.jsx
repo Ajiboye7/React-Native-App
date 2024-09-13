@@ -1,5 +1,5 @@
 import { Text, View,Image,ScrollView, Alert } from 'react-native'
-import {React,  useState } from 'react'
+import {React, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {images} from "../../constants"
 import FormField from '../../components/FormField'
@@ -18,17 +18,15 @@ const SignUp = () => {
   const submit = async ()=>{
     if(!form.email || !form.password || !form.username){
       Alert.alert('Error', "please fill in all the fields")
-      return;
     }
-
     setIsSubmitting(true);
 
     try{
       const result = await createUser(form.email, form.password, form.username)
 
-      //set to global state
+      //set to gloabal state
 
-      router.replace('/home');
+      router.replace('/home')
     }catch(error){
       Alert.alert('Error', error.message)
     }finally{

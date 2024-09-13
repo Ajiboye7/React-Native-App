@@ -59,3 +59,26 @@ export const signIn = async (email, password) => {
     throw new Error(error.message);
   }
 };
+/*
+export const signIn = async (email, password) => {
+  try {
+    // First, check if there is already an active session
+    const sessions = await account.listSessions();
+
+    if (sessions.total > 0) {
+      console.log("An active session already exists.");
+      // Optionally, you can log out the user here if you want to clear the session
+      // await account.deleteSession(sessions.sessions[0].$id);
+      return sessions;
+    }
+
+    // If no active session, create a new session
+    const session = await account.createEmailPasswordSession(email, password);
+    return session;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
+
+ */
