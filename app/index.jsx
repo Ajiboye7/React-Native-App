@@ -6,7 +6,6 @@ import { StatusBar } from "expo-status-bar";
 import { Redirect, router } from "expo-router";
 
 import { useGlobalContext } from "@/context/GlobalProvider";
-import { isLoading } from "expo-font";
 
 
 export default function HomeScreen() {
