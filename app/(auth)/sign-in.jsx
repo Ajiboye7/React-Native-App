@@ -7,6 +7,7 @@ import CustomButton from "../../components/CustomButton";
 import { Link, router } from 'expo-router';
 import {getCurrentUser, signIn} from '../../library/appwrite'
 import { useGlobalContext } from "../../context/GlobalProvider";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -28,7 +29,7 @@ const SignIn = () => {
        await signIn(form.email, form.password)
       //set to global state
       const result = await getCurrentUser ();
-      await AsyncStorage.setItem('userSession', JSON.stringify(result));
+        await AsyncStorage.setItem('userSession', JSON.stringify(result));
       setUser(result)
       setIsLoggedIn(true);
 
