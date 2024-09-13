@@ -28,6 +28,7 @@ const SignIn = () => {
        await signIn(form.email, form.password)
       //set to global state
       const result = await getCurrentUser ();
+      await AsyncStorage.setItem('userSession', JSON.stringify(result));
       setUser(result)
       setIsLoggedIn(true);
 

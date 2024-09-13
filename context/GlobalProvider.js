@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { getCurrentUser } from "../library/appwrite";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const GlobalContext = createContext();
 
 export const useGlobalContext = () => useContext(GlobalContext);
@@ -11,25 +13,34 @@ export const GlobalProvider = ({ children }) => {
 
 
   useEffect(() => {
-    // Call the getCurrentUser function
-    getCurrentUser()
-      .then((res) => {
-        if (res) {
+    const checkUserSession = async () => {
+      try {
+        const userSession = await AsyncStorage.getItem('userSession');
+        if (userSession) {
+          const userData = JSON.parse(userSession);
+          setUser(userData);
           setIsLoggedIn(true);
-          setUser(res);
         } else {
-          setIsLoggedIn(false);
-          setUser(null);
+          const result = await getCurrentUser();
+          if (result) {
+            setUser(result);
+            setIsLoggedIn(true);
+            await AsyncStorage.setItem('userSession', JSON.stringify(result));
+          } else {
+            setIsLoggedIn(false);
+            setUser(null);
+          }
         }
-      })
-      .catch((error) => {
-        console.error('Error fetching current user:', error);
-        setIsLoggedIn(false); 
-        setUser(null); 
-      })
-      .finally(() => {
-        setIsLoading(false); 
-      });
+      } catch (error) {
+        console.error('Error checking user session:', error);
+        setIsLoggedIn(false);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    checkUserSession();
   }, []);
 
 

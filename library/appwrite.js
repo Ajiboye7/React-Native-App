@@ -63,7 +63,7 @@ export const signIn = async (email, password) => {
 
 export const getCurrentUser =async ()=>{
     try{
-        const currentAccount = await account.get()
+        const currentAccount = await account.get();
 
         if(!currentAccount) throw Error
 
