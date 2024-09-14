@@ -1,4 +1,4 @@
-/*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
+import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
 export const Config = {
   endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.ajiboyedev.aora",
@@ -77,7 +77,7 @@ export const getCurrentUser =async ()=>{
     }catch(error){
         console.log(error)
     }
-}*/
+}
 
 
 
