@@ -1,5 +1,5 @@
 import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export const Config = {
   endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.ajiboyedev.aora",
