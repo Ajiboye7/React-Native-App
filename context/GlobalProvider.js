@@ -1,4 +1,4 @@
-/*import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { getCurrentUser } from "../library/appwrite";
 
 
@@ -49,7 +49,7 @@ export const GlobalProvider = ({ children }) => {
   </GlobalContext.Provider>;
 };
 
-export default GlobalProvider;*/
+export default GlobalProvider;
 
 
 
