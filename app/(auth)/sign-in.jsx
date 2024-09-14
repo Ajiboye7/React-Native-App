@@ -1,4 +1,4 @@
-/*import { Text, View,Image,ScrollView,Alert} from 'react-native'
+import { Text, View,Image,ScrollView,Alert} from 'react-native'
 import  {React, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {images} from "../../constants"
@@ -87,6 +87,6 @@ const SignIn = () => {
   )
 }
 
-export default SignIn*/
+export default SignIn
 
 
