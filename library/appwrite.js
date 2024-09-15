@@ -22,7 +22,18 @@ const databases = new Databases(client);
 
 export const createUser = async (email, password, username) => {
   try {
-    const n
+    const newAccount = await account.create(ID.unique(), email, password, username);
+
+    if (!newAccount) throw new Error("Account creation failed");
+
+    const avatarUrl = avatars.getInitials(username);
+    await signIn(email, password); 
+
+    const newUser = await databases.createDocument(
+      Config.databaseId,
+      Config.userCollectionId,
+      ID.unique(),
+      {
         accoundId: newAccount.$id, 
         email,
         username,
