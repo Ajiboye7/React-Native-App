@@ -48,7 +48,7 @@ export const createUser = async (email, password, username) => {
   }
 };
 
-/*export const signIn = async (email, password) => {
+export const signIn = async (email, password) => {
   try {
     const session = await account.createEmailPasswordSession(email, password);
     return session;
@@ -56,24 +56,7 @@ export const createUser = async (email, password, username) => {
     console.log(error);
     throw new Error(error.message);
   }
-};*/
-const signIn = async (email, password) => {
-  try {
-    const session = await signIn(email, password);
-    if (session) {
-      // Store the session in AsyncStorage and set state
-      await AsyncStorage.setItem('userSession', JSON.stringify(session));
-      setIsLoggedIn(true);
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
-    }
-  } catch (error) {
-    console.error('Error logging in:', error);
-    setIsLoggedIn(false);
-    setUser(null);
-  }
 };
-
 
 
 export const getCurrentUser =async ()=>{
