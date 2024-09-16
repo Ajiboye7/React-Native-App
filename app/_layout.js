@@ -35,8 +35,9 @@ export default function RootLayout() {
   } 
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+   
     <GlobalProvider>
+     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -44,8 +45,8 @@ export default function RootLayout() {
         {/*<Stack.Screen name="/search/[query]" options={{ headerShown: false }} />*/}
         <Stack.Screen name="+not-found" />
       </Stack>
+      </ThemeProvider>
     </GlobalProvider>
-      
-    </ThemeProvider>
+   
   );
 }

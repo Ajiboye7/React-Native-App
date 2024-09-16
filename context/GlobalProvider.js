@@ -12,9 +12,11 @@ export const GlobalProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
 
+
+
   useEffect(() => {
     // Call the getCurrentUser function
-    getCurrentUser()
+     getCurrentUser()
       .then((res) => {
         if (res) {
           setIsLoggedIn(true);
@@ -36,7 +38,7 @@ export const GlobalProvider = ({ children }) => {
 
 
 
-  return <GlobalContext.Provider
+  return <GlobalContext.Provider   
   value={{
     isLoading,
     isLoggedIn,

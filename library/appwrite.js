@@ -1,5 +1,5 @@
 import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
-export const Config = {
+export const config = {
   endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.ajiboyedev.aora",
   projectId: "66e168a900130ea9ac05",
@@ -12,9 +12,9 @@ export const Config = {
 const client = new Client();
 
 client
-  .setEndpoint(Config.endpoint)
-  .setProject(Config.projectId)
-  .setPlatform(Config.platform);
+  .setEndpoint(config.endpoint)
+  .setProject(config.projectId)
+  .setPlatform(config.platform);
 
 const account = new Account(client);
 const avatars = new Avatars(client);
@@ -30,8 +30,8 @@ export const createUser = async (email, password, username) => {
     await signIn(email, password); 
 
     const newUser = await databases.createDocument(
-      Config.databaseId,
-      Config.userCollectionId,
+      config.databaseId, 
+      config.userCollectionId,
       ID.unique(),
       {
         accoundId: newAccount.$id, 
@@ -59,15 +59,15 @@ export const signIn = async (email, password) => {
 };
 
 
-export const getCurrentUser =async ()=>{
+/*export const getCurrentUser =async ()=>{
     try{
          const currentAccount = await account.get();
 
         if(!currentAccount) throw Error
 
         const currentUser = await databases.listDocuments(
-            Config.databaseId,
-            Config.userCollectionId,
+            config.databaseId,
+            config.userCollectionId,
             [Query.equal('accoundId', currentAccount.$id)]
         )
 
@@ -77,7 +77,31 @@ export const getCurrentUser =async ()=>{
     }catch(error){
         console.log(error)
     }
-}
+}*/
+
+export const getCurrentUser = async () => {
+  try {
+    // Fetches the current logged-in user session from Appwrite
+    const currentAccount = await account.get();
+
+    if (!currentAccount) throw Error("No active session");
+
+    // Fetch the user data from your database
+    const currentUser = await databases.listDocuments(
+      config.databaseId,
+      config.userCollectionId,
+      [Query.equal('accoundId', currentAccount.$id)]
+    );
+
+    if (!currentUser) throw Error("User not found in the database");
+
+    // Return the first document from the query
+    return currentUser.documents[0];
+  } catch (error) {
+    console.log("Error fetching user:", error);
+    return null; // If there’s an error, return null
+  }
+};
 
 
 
