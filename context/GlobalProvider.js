@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+/*import { createContext, useContext, useState, useEffect } from "react";
 import { getCurrentUser } from "../library/appwrite";
 
 
@@ -49,8 +49,98 @@ export const GlobalProvider = ({ children }) => {
   </GlobalContext.Provider>;
 };
 
-export default GlobalProvider;
+export default GlobalProvider;*/
 
+
+
+import { createContext, useContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getLoggedInUser, signIn as appwriteSignIn } from "../library/appwrite"; // Adjust the path accordingly
+
+const GlobalContext = createContext();
+
+export const useGlobalContext = () => useContext(GlobalContext);
+
+export const GlobalProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const storedSession = await AsyncStorage.getItem('userSession');
+        if (storedSession) {
+          const session = JSON.parse(storedSession);
+          const currentUser = await getLoggedInUser(); // Fetch current user using Appwrite session
+
+          if (currentUser) {
+            setIsLoggedIn(true);
+            setUser(currentUser);
+          } else {
+            // Session is invalid or expired
+            await AsyncStorage.removeItem('userSession');
+            setIsLoggedIn(false);
+            setUser(null);
+          }
+        }
+      } catch (error) {
+        console.error('Error checking session:', error);
+        setIsLoggedIn(false);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkSession();
+  }, []);
+
+  const logIn = async (email, password) => {
+    try {
+      const session = await appwriteSignIn(email, password);
+      if (session) {
+        await AsyncStorage.setItem('userSession', JSON.stringify(session));
+        const currentUser = await getLoggedInUser();
+        setUser(currentUser);
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      setIsLoggedIn(false);
+      setUser(null);
+    }
+  };
+
+  const logOut = async () => {
+    try {
+      await AsyncStorage.removeItem('userSession');
+      setIsLoggedIn(false);
+      setUser(null);
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
+  return (
+    <GlobalContext.Provider
+      value={{
+        isLoading,
+        isLoggedIn,
+        setIsLoading,
+        setIsLoggedIn,
+        user,
+        logIn,
+        logOut,
+        setUser,
+      }}
+    >
+      {children}
+    </GlobalContext.Provider>
+  );
+};
+
+export default GlobalProvider;
 
 
 

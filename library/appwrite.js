@@ -79,6 +79,29 @@ export const getCurrentUser =async ()=>{
     }
 }
 
+// appwrite.js
+
+export const createSessionClient = () => {
+  const client = new Client();
+  const account = new Account(client);
+
+  client
+    .setEndpoint('https://cloud.appwrite.io/v1') // Appwrite Endpoint
+    .setProject('66e168a900130ea9ac05'); // Appwrite Project ID
+
+  return { account };
+};
+
+export async function getLoggedInUser() {
+  try {
+    const { account } = createSessionClient();
+    return await account.get();
+  } catch (error) {
+    console.error('Error getting logged in user:', error);
+    return null;
+  }
+}
+
 
 
 
