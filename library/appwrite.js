@@ -51,15 +51,12 @@ export const createUser = async (email, password, username) => {
 export const signIn = async (email, password) => {
   try {
     const session = await account.createEmailPasswordSession(email, password);
-    // Save session details to localStorage or cookies
-    localStorage.setItem('appwriteSession', JSON.stringify(session));
     return session;
   } catch (error) {
-    console.log("Error in signIn:", error.message);
+    console.log(error);
     throw new Error(error.message);
   }
 };
-
 
 
 export const getCurrentUser =async ()=>{
