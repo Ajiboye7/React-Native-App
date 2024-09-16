@@ -51,12 +51,15 @@ export const createUser = async (email, password, username) => {
 export const signIn = async (email, password) => {
   try {
     const session = await account.createEmailPasswordSession(email, password);
+    // Save session details to localStorage or cookies
+    localStorage.setItem('appwriteSession', JSON.stringify(session));
     return session;
   } catch (error) {
-    console.log(error);
+    console.log("Error in signIn:", error.message);
     throw new Error(error.message);
   }
 };
+
 
 
 export const getCurrentUser =async ()=>{
@@ -78,30 +81,6 @@ export const getCurrentUser =async ()=>{
         console.log(error)
     }
 }
-
-// appwrite.js
-
-export const createSessionClient = () => {
-  const client = new Client();
-  const account = new Account(client);
-
-  client
-    .setEndpoint('https://cloud.appwrite.io/v1') // Appwrite Endpoint
-    .setProject('66e168a900130ea9ac05'); // Appwrite Project ID
-
-  return { account };
-};
-
-export async function getLoggedInUser() {
-  try {
-    const { account } = createSessionClient();
-    return await account.get();
-  } catch (error) {
-    console.error('Error getting logged in user:', error);
-    return null;
-  }
-}
-
 
 
 
