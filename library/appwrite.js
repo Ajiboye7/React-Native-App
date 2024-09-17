@@ -43,25 +43,6 @@ export const createUser = async (email, password, username) => {
 
     return newUser;
   } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
-  }
-};
-
-export const signIn = async (email, password) => {
-  try {
-    const session = await account.createEmailPasswordSession(email, password);
-    return session;
-  } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
-  }
-};
-
-
-/*export const getCurrentUser =async ()=>{
-    try{
-         const currentAccount = await account.get();
 
         if(!currentAccount) throw Error
 
@@ -77,32 +58,7 @@ export const signIn = async (email, password) => {
     }catch(error){
         console.log(error)
     }
-}*/
-
-export const getCurrentUser = async () => {
-  try {
-    // Fetches the current logged-in user session from Appwrite
-    const currentAccount = await account.get();
-
-    if (!currentAccount) throw Error("No active session");
-
-    // Fetch the user data from your database
-    const currentUser = await databases.listDocuments(
-      config.databaseId,
-      config.userCollectionId,
-      [Query.equal('accoundId', currentAccount.$id)]
-    );
-
-    if (!currentUser) throw Error("User not found in the database");
-
-    // Return the first document from the query
-    return currentUser.documents[0];
-  } catch (error) {
-    console.log("Error fetching user:", error);
-    return null; // If there’s an error, return null
-  }
-};
-
+}
 
 
 
