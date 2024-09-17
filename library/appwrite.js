@@ -43,6 +43,25 @@ export const createUser = async (email, password, username) => {
 
     return newUser;
   } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
+
+export const signIn = async (email, password) => {
+  try {
+    const session = await account.createEmailPasswordSession(email, password);
+    return session;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
+
+
+export const getCurrentUser =async ()=>{
+    try{
+         const currentAccount = await account.get();
 
         if(!currentAccount) throw Error
 
