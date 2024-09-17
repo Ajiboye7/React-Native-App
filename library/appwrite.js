@@ -26,35 +26,7 @@ export const createUser = async (email, password, username) => {
 
     if (!newAccount) throw new Error("Account creation failed");
 
-    const avatarUrl = avatars.getInitials(username);
-    await signIn(email, password); 
-
-    const newUser = await databases.createDocument(
-      config.databaseId, 
-      config.userCollectionId,
-      ID.unique(),
-      {
-        accoundId: newAccount.$id, 
-        email,
-        username,
-        avatar: avatarUrl
-      }
-    );
-
-    return newUser;
-  } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
-  }
-};
-
-export const signIn = async (email, password) => {
-  try {
-    const session = await account.createEmailPasswordSession(email, password);
-    return session;
-  } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
+    const avatarUrl = avatars.getInitials
   }
 };
 
