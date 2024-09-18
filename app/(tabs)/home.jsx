@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, Image} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { images } from "../../constants";
 
 const Home = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView className="bg-secondary">
       <FlatList
         data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
         keyExtractor={(item) => item.$id}
@@ -22,7 +23,15 @@ const Home = () => {
                 Ajiboye
               </Text>
             </View>
+            <View className='mt-i.5'>
+            <Image
+              source={images.logoSmall}
+              className="w-9 h-10"
+              resizeMode="contain"
+            />
             </View>
+            </View>
+            
           </View>
         )}
       />
