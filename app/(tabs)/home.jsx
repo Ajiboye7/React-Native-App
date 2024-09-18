@@ -8,6 +8,23 @@ import EmptyState from "../../components/EmptyState";
 
 const Home = () => {
   return (
+    <SafeAreaView className="bg-secondary">
+      <FlatList
+        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        keyExtractor={(item) => item.$id}
+        renderItem={({ item }) => (
+          <Text className="text-white text-3xl">{item.id}</Text>
+        )}
+        ListHeaderComponent={() => (
+          <View className="my-6 px-4 space-y-6">
+            <View className="justify-between items-start flex-row mb-6">
+            <View>
+            <Text className="font-pmedium text-sm  text-white">
+                Welcome Back
+              </Text>
+              <Text className="font-psemibold text-white text-2xl">
+                Ajiboye
+              </Text>
             </View>
             <View className='mt-i.5'>
             <Image
