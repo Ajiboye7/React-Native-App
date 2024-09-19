@@ -6,35 +6,23 @@ import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import EmptyState from "../../components/EmptyState";
 import {getAllPosts} from "../../library/appwrite"
+import useAppwrite from "../../library/useAppwrite";
 
 
 const Home = () => {
+  const { data: posts} = useAppwrite(getAllPosts)
+
   const[refreshing, setRefreshing] =useState(false);
-  const [data, setData] = useState([])
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(()=>{
-    const fetchData = async ()=>{
-      setIsLoading(true)
-      try{
-        const response = await getAllPosts() 
-        setData(response)
-      }catch(error){
-        Alert.alert('Error', error.message)
-      }finally{
-        setIsLoading(false)
-      }
-    }
-    fetchData()
-  },[]);
-
-  console.log(data);
 
   const onRefresh = async () =>{
     setRefreshing(true)
     // recall new videos if any new videos appeared 
     setRefreshing(false)
   }
+
+  console.log(posts)
+
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
