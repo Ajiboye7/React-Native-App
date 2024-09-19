@@ -4,10 +4,10 @@ const useAppwrite = (fn)=>{
     const [data, setData] = useState([])
    const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(()=>{
+ 
     const fetchData = async ()=>{
       setIsLoading(true)
-      try{
+      try{ 
         const response = await fn() 
         setData(response)
       }catch(error){
@@ -16,9 +16,11 @@ const useAppwrite = (fn)=>{
         setIsLoading(false)
       }
     }
+    useEffect(()=>{
     fetchData()
   },[]);
 
+  const refetch = () = fetchData();
   return {data}
 }
 
