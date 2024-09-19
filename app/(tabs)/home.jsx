@@ -16,7 +16,7 @@ const Home = () => {
 
   const onRefresh = async () =>{
     setRefreshing(true)
-    // recall new videos if any new videos appeared 
+    
     await refetch();
 
     setRefreshing(false)
