@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, FlatList, Image, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
@@ -8,11 +8,26 @@ import EmptyState from "../../components/EmptyState";
 
 
 const Home = () => {
-  const[refreshing, setRefreshing] =useState(false)
+  const[refreshing, setRefreshing] =useState(false);
+  const [data, setData] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      setIsLoading(true)
+      try{
+
+      }catch(error){
+        Alert.alert('Error', error.message)
+      }finally{
+        setIsLoading(false)
+      }
+    }
+  })
 
   const onRefresh = async () =>{
     setRefreshing(true)
-    // recall new videos if any new videos appeared
+    // recall new videos if any new videos appeared 
     setRefreshing(false)
   }
   return (
