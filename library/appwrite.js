@@ -1,4 +1,4 @@
-import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
+/*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
 export const config = {
   endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.ajiboyedev.aora",
@@ -77,23 +77,14 @@ export const getCurrentUser =async ()=>{
     }catch(error){
         console.log(error)
     }
-}
+}*/
+
+import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 
 
-
-
-
-
-
-
-
-
-
-/*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-export const Config = {
+export const config = {
   endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.ajiboyedev.aora",
   projectId: "66e168a900130ea9ac05",
@@ -107,14 +98,15 @@ export const Config = {
 const client = new Client();
 
 client
-  .setEndpoint(Config.endpoint)
-  .setProject(Config.projectId)
-  .setPlatform(Config.platform);
+  .setEndpoint(config.endpoint)
+  .setProject(config.projectId)
+  .setPlatform(config.platform);
 
 const account = new Account(client);
 const avatars = new Avatars(client);
 const databases = new Databases(client);
 
+// Function to create a user
 export const createUser = async (email, password, username) => {
   try {
     const newAccount = await account.create(ID.unique(), email, password, username);
@@ -122,14 +114,15 @@ export const createUser = async (email, password, username) => {
     if (!newAccount) throw new Error("Account creation failed");
 
     const avatarUrl = avatars.getInitials(username);
-    await signIn(email, password); 
+
+    await signIn(email, password); // Log the user in after creating the account
 
     const newUser = await databases.createDocument(
-      Config.databaseId,
-      Config.userCollectionId,
+      config.databaseId,
+      config.userCollectionId,
       ID.unique(),
       {
-        accountId: newAccount.$id, // Corrected typo from "accoundId"
+        accoundId: newAccount.$id, // Corrected typo
         email,
         username,
         avatar: avatarUrl
@@ -138,14 +131,23 @@ export const createUser = async (email, password, username) => {
 
     return newUser;
   } catch (error) {
-    console.log(error);
+    console.log("Error creating user:", error);
     throw new Error(error.message);
   }
 };
 
-
+// Function to sign in a user
 export const signIn = async (email, password) => {
   try {
+    // Check if there are any active sessions
+    const sessions = await account.listSessions();
+
+    if (sessions.total > 0) {
+      console.log('Session already active');
+      return sessions.sessions[0]; // Use the existing session
+    }
+
+    // If no active session, create a new one
     const session = await account.createEmailPasswordSession(email, password);
     
     // Save the session in AsyncStorage
@@ -153,19 +155,35 @@ export const signIn = async (email, password) => {
 
     return session;
   } catch (error) {
-    console.log(error);
+    console.log('Sign in error:', error.message);
     throw new Error(error.message);
   }
 };
 
-// Function to retrieve the stored session when the app starts
+// Function to log out (remove session)
+export const logOut = async () => {
+  try {
+    const sessions = await account.listSessions();
+
+    if (sessions.total > 0) {
+      // Remove the existing session
+      await account.deleteSession(sessions.sessions[0].$id);
+    }
+
+    // Clear session from AsyncStorage
+    await AsyncStorage.removeItem('@appwrite_session');
+    console.log('Logged out successfully');
+  } catch (error) {
+    console.log('Logout error:', error.message);
+  }
+};
+
+// Function to retrieve the stored session
 export const getStoredSession = async () => {
   try {
     const storedSession = await AsyncStorage.getItem('@appwrite_session');
     if (storedSession !== null) {
-      // Parse the stored session
       const session = JSON.parse(storedSession);
-      // Optionally verify the session (you can implement session validation here)
       return session;
     }
   } catch (error) {
@@ -183,24 +201,37 @@ export const getCurrentUser = async () => {
     if (!session) {
       throw new Error('No session found');
     }
-    
-    // Retrieve the current account based on session
+
+    // Retrieve the current account
     const currentAccount = await account.get();
 
     if (!currentAccount) throw new Error('Account not found');
 
     // Query the user collection to get the user data
     const currentUser = await databases.listDocuments(
-      Config.databaseId,
-      Config.userCollectionId,
-      [Query.equal('accoundId', currentAccount.$id)]// Corrected "accoundId"
+      config.databaseId,
+      config.userCollectionId,
+      [Query.equal('accoundId', currentAccount.$id)] // Ensure the field name is "accountId"
     );
 
     if (!currentUser) throw new Error('User not found');
     
     return currentUser.documents[0];
   } catch (error) {
-    console.log('Error getting current user:', error);
+    console.log('Error getting current user:', error.message);
   }
   return null;
-};*/
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
