@@ -5,6 +5,7 @@ import { images } from "../../constants";
 import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import EmptyState from "../../components/EmptyState";
+import {getAllPosts} from "../../library/appwrite"
 
 
 const Home = () => {
@@ -16,14 +17,19 @@ const Home = () => {
     const fetchData = async ()=>{
       setIsLoading(true)
       try{
+        const response = await getAllPosts()
 
+        setData(response)
       }catch(error){
         Alert.alert('Error', error.message)
       }finally{
         setIsLoading(false)
       }
     }
-  })
+    fetchData()
+  },[])
+
+  console.log(data)
 
   const onRefresh = async () =>{
     setRefreshing(true)

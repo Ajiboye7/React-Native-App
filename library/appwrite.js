@@ -234,7 +234,7 @@ export const getCurrentUser = async () => {
   return null;
 };
 
-const getAllPosts = async()=>{
+export const getAllPosts = async()=>{
   try{
     const posts = await databases.listDocuments(
       databaseId,
