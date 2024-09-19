@@ -8,12 +8,12 @@ const EmptyState = ({subtitle, title}) => {
       <Image
         source={images.empty}
         className="w-[270px] h-[215px]"
-        resizeMethod="contain"
+        resizeMode="contain"
       />
       <Text className="font-pmedium text-sm text-white">
-        {subtitle}
+        {title}
       </Text>
-      <Text className="font-psemibold text-white text-2xl">{title}</Text>
+      <Text className="font-psemibold text-white text-xl">{subtitle}</Text>
     </View>
   );
 };

@@ -8,9 +8,10 @@ import EmptyState from "../../components/EmptyState";
 
 const Home = () => {
   return (
-    <SafeAreaView className="bg-secondary">
+    <SafeAreaView className="bg-primary">
       <FlatList
-        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+       // data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
           <Text className="text-white text-3xl">{item.id}</Text>
