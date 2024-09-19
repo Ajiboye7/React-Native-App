@@ -241,7 +241,7 @@ export const getAllPosts = async()=>{
       videoCollectionId
     )
 
-    posts.documents;
+    return posts.documents;
   }catch(error){
     throw new Error(error)
   }

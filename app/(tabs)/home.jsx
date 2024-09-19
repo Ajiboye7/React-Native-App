@@ -17,8 +17,7 @@ const Home = () => {
     const fetchData = async ()=>{
       setIsLoading(true)
       try{
-        const response = await getAllPosts()
-
+        const response = await getAllPosts() 
         setData(response)
       }catch(error){
         Alert.alert('Error', error.message)
@@ -27,9 +26,9 @@ const Home = () => {
       }
     }
     fetchData()
-  },[])
+  },[]);
 
-  console.log(data)
+  console.log(data);
 
   const onRefresh = async () =>{
     setRefreshing(true)
