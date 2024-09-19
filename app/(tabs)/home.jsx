@@ -10,17 +10,19 @@ import useAppwrite from "../../library/useAppwrite";
 
 
 const Home = () => {
-  const { data: posts} = useAppwrite(getAllPosts)
+  const { data: posts, refetch} = useAppwrite(getAllPosts)
 
   const[refreshing, setRefreshing] =useState(false);
 
   const onRefresh = async () =>{
     setRefreshing(true)
     // recall new videos if any new videos appeared 
+    await refetch();
+    
     setRefreshing(false)
   }
 
-  console.log(posts)
+  
 
 
   return (
@@ -30,7 +32,7 @@ const Home = () => {
         //data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <Text className="text-white text-3xl">{item.id}</Text>
+          <Text className="text-white text-3xl">{item.title}</Text>
         )}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">

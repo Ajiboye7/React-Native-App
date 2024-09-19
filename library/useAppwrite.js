@@ -4,7 +4,6 @@ const useAppwrite = (fn)=>{
     const [data, setData] = useState([])
    const [isLoading, setIsLoading] = useState(true);
 
- 
     const fetchData = async ()=>{
       setIsLoading(true)
       try{ 
@@ -20,8 +19,8 @@ const useAppwrite = (fn)=>{
     fetchData()
   },[]);
 
-  const refetch = () = fetchData();
-  return {data}
+  const refetch = () => fetchData();
+  return {data, isLoading, refetch}
 }
 
 export default useAppwrite
