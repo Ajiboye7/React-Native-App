@@ -7,6 +7,7 @@ import Trending from "../../components/Trending";
 import EmptyState from "../../components/EmptyState";
 import {getAllPosts} from "../../library/appwrite"
 import useAppwrite from "../../library/useAppwrite";
+import VideoCard from "../../components/VideoCard";
 
 
 const Home = () => {
@@ -19,7 +20,7 @@ const Home = () => {
     
     await refetch();
 
-    setRefreshing(false)
+    setRefreshing(false) 
   }
 
   
@@ -32,7 +33,8 @@ const Home = () => {
         //data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <Text className="text-white text-3xl">{item.title}</Text>
+          /*<Text className="text-white text-3xl">{item.title}</Text>*/
+          <VideoCard video ={item}/>
         )}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
