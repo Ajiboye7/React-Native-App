@@ -38,7 +38,7 @@ const TrendingItems = ({activeItem, item})=>{
     >
     {play ? (
       <Video
-  source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }}  // Known working MP4
+  source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }} 
   className="w-52 h-72 mt-3 bg-white/10"
   resizeMode={ResizeMode.CONTAIN}
   useNativeControls
