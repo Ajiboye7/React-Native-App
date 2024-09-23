@@ -1,8 +1,10 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList,ImageBackground,Image } from 'react-native'
 import React, { useState } from 'react'
 import * as Animatable from 'react-native-animatable'
 import { ZoomIn } from 'react-native-reanimated'
 import { TouchableOpacity } from 'react-native'
+import { icons } from '../constants'
+
 
 
 const zoomIn ={
@@ -37,8 +39,22 @@ const TrendingItems = ({activeItem, item})=>{
     {play ?(
       <Text className="text-white">Playing</Text>
     ): (
-      <TouchableOpacity  className="relative justify-center items-center">
-
+      <TouchableOpacity  
+      className="relative justify-center items-center"
+      activeOpacity={0.7}
+      onPress={()=> setPlay(true)}
+      >
+      <ImageBackground
+      source={{
+        uri:item.thumbnail
+      }}
+      className="w-52 h-72 rounded-[35px] my-5 overflow-hidden shadow-black/40"
+      resizeMode='cover'
+      />
+      <Image
+        source={icons.play}
+        className="w-12 h-12 absolute"
+      />
       </TouchableOpacity>
     )}
     </Animatable.View>
