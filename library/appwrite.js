@@ -1,4 +1,4 @@
-import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
+/*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
 export const config = {
   endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.ajiboyedev.aora",
@@ -77,62 +77,9 @@ export const getCurrentUser =async ()=>{
     }catch(error){
         console.log(error)
     }
-}
+}*/
 
-export const getAllPosts = async()=>{
-  try{
-    const posts = await databases.listDocuments(
-      databaseId,
-      videoCollectionId
-    )
 
-    return posts.documents;
-  }catch(error){
-    throw new Error(error)
-  }
-}
-
-export const getLatestPosts = async()=>{
-  try{
-    const posts = await databases.listDocuments(
-      databaseId,
-      videoCollectionId,
-      [Query.orderDesc('$createdAt', Query.limit(7))]
-    )
-
-    return posts.documents;
-  }catch(error){
-    throw new Error(error)
-  }
-}
-
-export const SearchPosts = async(query)=>{
-  try{
-    const posts = await databases.listDocuments(
-      databaseId,
-      videoCollectionId,
-      [Query.search('title', query)]
-    )
-
-    return posts.documents;
-  }catch(error){
-    throw new Error(error)
-  }
-}
-
-export const getUserPosts = async(userId)=>{
-  try{
-    const posts = await databases.listDocuments(
-      databaseId,
-      videoCollectionId,
-      [Query.equal('creator', userId)]
-    )
-
-    return posts.documents;
-  }catch(error){
-    throw new Error(error)
-  }
-}
 
 /*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
@@ -349,6 +296,102 @@ export const getUserPosts = async(userId)=>{
 
 
 
+import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
+
+
+
+export const config = {
+  endpoint: "https://cloud.appwrite.io/v1",
+  platform: "com.ajiboyedev.aora",
+  projectId: "66e168a900130ea9ac05",
+  databaseId: "66e16c380011e90b87d8",
+  userCollectionId: "66e16cbd00119938ab11",
+  videoCollectionId: "66e16d16001f8cb68304",
+  storageId: "66e171cd000fa61e0aba",
+};
+
+const{
+  endpoint,
+  platform,
+  databaseId,
+  userCollectionId,
+  videoCollectionId,
+  storageId,
+  projectId
+} = config
+
+
+// Init React Native SDK
+const client = new Client();
+
+client
+  .setEndpoint(endpoint)
+  .setProject(projectId)
+  .setPlatform(platform);
+
+const account = new Account(client);
+const avatars = new Avatars(client);
+const databases = new Databases(client);
+
+export const createUser = async (email, password, username) => {
+  try {
+    const newAccount = await account.create(ID.unique(), email, password, username);
+
+    if (!newAccount) throw new Error("Account creation failed");
+
+    const avatarUrl = avatars.getInitials(username);
+    await signIn(email, password); 
+
+    const newUser = await databases.createDocument(
+      databaseId, 
+      userCollectionId,
+      ID.unique(),
+      {
+        accoundId: newAccount.$id, 
+        email,
+        username,
+        avatar: avatarUrl
+      }
+    );
+
+    return newUser;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
+
+export const signIn = async (email, password) => {
+  try {
+    const session = await account.createEmailPasswordSession(email, password);
+    return session;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
+
+
+export const getCurrentUser =async ()=>{
+    try{
+         const currentAccount = await account.get();
+
+        if(!currentAccount) throw Error
+
+        const currentUser = await databases.listDocuments(
+            databaseId,
+            userCollectionId,
+            [Query.equal('accoundId', currentAccount.$id)]
+        )
+
+        if(!currentUser) throw Error
+        
+        return currentUser.documents[0]
+    }catch(error){
+        console.log(error)
+    }
+}
 
 
 
