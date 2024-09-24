@@ -1,4 +1,4 @@
-/*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
+import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
 export const config = {
   endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.ajiboyedev.aora",
@@ -77,9 +77,64 @@ export const getCurrentUser =async ()=>{
     }catch(error){
         console.log(error)
     }
-}*/
+}
 
-import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
+export const getAllPosts = async()=>{
+  try{
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId
+    )
+
+    return posts.documents;
+  }catch(error){
+    throw new Error(error)
+  }
+}
+
+export const getLatestPosts = async()=>{
+  try{
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+      [Query.orderDesc('$createdAt', Query.limit(7))]
+    )
+
+    return posts.documents;
+  }catch(error){
+    throw new Error(error)
+  }
+}
+
+export const SearchPosts = async(query)=>{
+  try{
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+      [Query.search('title', query)]
+    )
+
+    return posts.documents;
+  }catch(error){
+    throw new Error(error)
+  }
+}
+
+export const getUserPosts = async(userId)=>{
+  try{
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+      [Query.equal('creator', userId)]
+    )
+
+    return posts.documents;
+  }catch(error){
+    throw new Error(error)
+  }
+}
+
+/*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 
@@ -206,32 +261,31 @@ export const getStoredSession = async () => {
 // Function to get the current user based on stored session
 export const getCurrentUser = async () => {
   try {
-    // Check if there's a stored session
     const session = await getStoredSession();
-    
     if (!session) {
+      console.log('No session found, user might not be logged in.');
       throw new Error('No session found');
     }
 
-    // Retrieve the current account
     const currentAccount = await account.get();
+    console.log("Current account:", currentAccount);
 
-    if (!currentAccount) throw new Error('Account not found');
-
-    // Query the user collection to get the user data
     const currentUser = await databases.listDocuments(
       config.databaseId,
       config.userCollectionId,
       [Query.equal('accoundId', currentAccount.$id)] 
     );
 
-    if (!currentUser) throw new Error('User not found');
+    if (!currentUser || currentUser.documents.length === 0) {
+      console.log('User document not found, prompt sign-up');
+      throw new Error('User not found, please sign up again.');
+    }
     
     return currentUser.documents[0];
   } catch (error) {
     console.log('Error getting current user:', error.message);
+    throw error;
   }
-  return null;
 };
 
 export const getAllPosts = async()=>{
@@ -288,7 +342,7 @@ export const getUserPosts = async(userId)=>{
     throw new Error(error)
   }
 }
-
+*/
 
 
 
