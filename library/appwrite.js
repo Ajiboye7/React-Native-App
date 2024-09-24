@@ -261,12 +261,12 @@ export const getLatestPosts = async()=>{
   }
 }
 
-export const SearchPosts = async()=>{
+export const SearchPosts = async(query)=>{
   try{
     const posts = await databases.listDocuments(
       databaseId,
       videoCollectionId,
-      [Query.search('title', Query)]
+      [Query.search('title', query)]
     )
 
     return posts.documents;
