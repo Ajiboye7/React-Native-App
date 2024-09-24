@@ -11,10 +11,14 @@ import { useLocalSearchParams } from "expo-router";
 import {useGlobalContext} from '../../context/GlobalProvider'
 
 const Profile = () => {
-  const {user, setUser, setIsLoggedIn} = useGlobalContext
+  const {user, setUser, setIsLoggedIn} = useGlobalContext()
   const { query } = useLocalSearchParams();
-  const { data: posts } = useAppwrite(()=>getUserPosts(user.$id));
- 
+  const { data: posts } = useAppwrite(() => {
+    if (user && user.$id) {
+      return getUserPosts(user.$id);
+    }
+    return []; // Return an empty array or handle gracefully if user is not yet available
+  });
 
   return (
     <SafeAreaView className="bg-primary h-full">
