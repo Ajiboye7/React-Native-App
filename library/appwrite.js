@@ -275,6 +275,20 @@ export const SearchPosts = async(query)=>{
   }
 }
 
+export const getUserPosts = async()=>{
+  try{
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+      [Query.equal('creator', userId)]
+    )
+
+    return posts.documents;
+  }catch(error){
+    throw new Error(error)
+  }
+}
+
 
 
 
