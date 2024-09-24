@@ -384,6 +384,7 @@ export const signIn = async (email, password) => {
   }
 };
 
+
 // Function to log out (remove session)
 export const logOut = async () => {
   try {
