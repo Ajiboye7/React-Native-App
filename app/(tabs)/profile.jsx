@@ -13,18 +13,15 @@ import {useGlobalContext} from '../../context/GlobalProvider'
 const Profile = () => {
   const {user, setUser, setIsLoggedIn} = useGlobalContext()
   const { query } = useLocalSearchParams();
-  const { data: posts } = useAppwrite(() => {
-    if (user && user.$id) {
-      return getUserPosts(user.$id);
-    }
-    return []; // Return an empty array or handle gracefully if user is not yet available
-  });
+  const { data: posts } = useAppwrite(() => getUserPosts(user.$id));
+ 
+  
 
+  
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
-        //data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
