@@ -1,4 +1,4 @@
-/*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
+{/*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite"; 
 export const config = {
   endpoint: "https://cloud.appwrite.io/v1",
   platform: "com.ajiboyedev.aora",
@@ -77,11 +77,11 @@ export const getCurrentUser =async ()=>{
     }catch(error){
         console.log(error)
     }
-}*/
+}*/}
 
 
 
-/*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
+{/*import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 
@@ -289,7 +289,7 @@ export const getUserPosts = async(userId)=>{
     throw new Error(error)
   }
 }
-*/
+*/}
 
 
 
@@ -298,7 +298,6 @@ export const getUserPosts = async(userId)=>{
 
 import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
-
 
 
 export const config = {
@@ -319,7 +318,7 @@ const{
   videoCollectionId,
   storageId,
   projectId
-} = config
+}= config
 
 
 // Init React Native SDK
