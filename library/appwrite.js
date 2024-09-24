@@ -364,11 +364,42 @@ export const createUser = async (email, password, username) => {
 
 export const signIn = async (email, password) => {
   try {
+    // Check if there are any active sessions
+    const sessions = await account.listSessions();
+
+    if (sessions.total > 0) {
+      console.log('Session already active');
+      return sessions.sessions[0]; // Use the existing session
+    }
+
+    // If no active session, create a new one
     const session = await account.createEmailPasswordSession(email, password);
+    
+    // Save the session in AsyncStorage
+    await AsyncStorage.setItem('@appwrite_session', JSON.stringify(session));
+
     return session;
   } catch (error) {
-    console.log(error);
+    console.log('Sign in error:', error.message);
     throw new Error(error.message);
+  }
+};
+
+// Function to log out (remove session)
+export const logOut = async () => {
+  try {
+    const sessions = await account.listSessions();
+
+    if (sessions.total > 0) {
+      // Remove the existing session
+      await account.deleteSession(sessions.sessions[0].$id);
+    }
+
+    // Clear session from AsyncStorage
+    await AsyncStorage.removeItem('@appwrite_session');
+    console.log('Logged out successfully');
+  } catch (error) {
+    console.log('Logout error:', error.message);
   }
 };
 
@@ -393,6 +424,61 @@ export const getCurrentUser =async ()=>{
     }
 }
 
+
+export const getAllPosts = async()=>{
+  try{
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId
+    )
+
+    return posts.documents;
+  }catch(error){
+    throw new Error(error)
+  }
+}
+
+export const getLatestPosts = async()=>{
+  try{
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+      [Query.orderDesc('$createdAt', Query.limit(7))]
+    )
+
+    return posts.documents;
+  }catch(error){
+    throw new Error(error)
+  }
+}
+
+export const SearchPosts = async(query)=>{
+  try{
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+      [Query.search('title', query)]
+    )
+
+    return posts.documents;
+  }catch(error){
+    throw new Error(error)
+  }
+}
+
+export const getUserPosts = async(userId)=>{
+  try{
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+      [Query.equal('creator', userId)]
+    )
+
+    return posts.documents;
+  }catch(error){
+    throw new Error(error)
+  }
+}
 
 
 
