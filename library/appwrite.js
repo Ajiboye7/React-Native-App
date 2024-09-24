@@ -275,7 +275,7 @@ export const SearchPosts = async(query)=>{
   }
 }
 
-export const getUserPosts = async()=>{
+export const getUserPosts = async(userId)=>{
   try{
     const posts = await databases.listDocuments(
       databaseId,
