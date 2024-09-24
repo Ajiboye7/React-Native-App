@@ -11,8 +11,10 @@ import { useLocalSearchParams } from "expo-router";
 import {useGlobalContext} from '../../context/GlobalProvider'
 
 const Profile = () => {
-  const {user, setUser, setIsLoggedIn} = useGlobalContext()
+  const { user, setUser, setIsLoggedIn } = useGlobalContext(); // Call useGlobalContext correctly
   const { query } = useLocalSearchParams();
+
+  // Check if user is available before calling `getUserPosts`
   const { data: posts } = useAppwrite(() => {
     if (user && user.$id) {
       return getUserPosts(user.$id);
@@ -20,23 +22,31 @@ const Profile = () => {
     return []; // Return an empty array or handle gracefully if user is not yet available
   });
 
+  // If `user` is not defined, show loading or fallback UI
+  if (!user) {
+    return (
+      <SafeAreaView className="bg-primary h-full">
+        <Text className="text-white text-center">Loading user data...</Text>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
-        //data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
           <View className="my-6 px-4">
-            <Text className="font-pmedium text-sm  text-white">
-              Search Results
+            <Text className="font-pmedium text-sm text-white">
+              User Posts
             </Text>
             <Text className="font-psemibold text-white text-2xl">
-            {/*{query}*/}
+              {/* {query} */}
             </Text>
             <View className="mt-6 mb-8">
-            {/*<SearchInput initialQuery={query} />*/}
+              {/* <SearchInput initialQuery={query} /> */}
             </View>
           </View>
         )}
