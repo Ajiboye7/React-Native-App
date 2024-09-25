@@ -43,29 +43,9 @@ const Home = () => {
                 <Text className="font-pmedium text-sm  text-white">
                   Welcome Back
                 </Text>
-                <Text className="font-psemibold text-white text-2xl">
+                <Te className="font-psemibold text-white text-2xl">
                   {user?.username}
-                </Text>
-              </View>
-              <View className="mt-i.5">
-                <Image
-                  source={images.logoSmall}
-                  className="w-9 h-10"
-                  resizeMode="contain" 
-                />
-              </View>
-            </View>
-            <SearchInput />
-
-            <View className="w-full flex-1 pt-5 pb-8">
-              <Text className="text-gray-100 text-lg font-pregular mb-3">
-                Latest Videos
-              </Text>
-              <Trending posts={Latestposts ?? []} />
-            </View>
-          </View>
-        )}
-        ListEmptyComponent={() => (
+                </Te{() => (
           <EmptyState
             title="No videos Found"
             subtitle="Be the first one to upload a video"
