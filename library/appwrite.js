@@ -430,7 +430,8 @@ export const getAllPosts = async()=>{
   try{
     const posts = await databases.listDocuments(
       databaseId,
-      videoCollectionId
+      videoCollectionId,
+      [Query.orderDesc('$createdAt')]
     )
 
     return posts.documents;
@@ -508,8 +509,13 @@ export const getFilePreview = async (fileId, type) =>{
 
 
 export const uploadFIle = async (file, type) =>{
-  const {mimeType, ...rest} = file
-  const asset = { type: mimeType, ...rest}
+
+  const asset = { 
+    name: file.fileName,
+    type: file.mimeType,
+    size: file.fileSize,
+    uri: file.uri,
+  }
   
   try{
     const uploadFIle = await storage.createFile(
