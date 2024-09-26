@@ -32,24 +32,7 @@ const TrendingItems = ({activeItem, item})=>{
   const [play, setPlay] = useState(false);
   return(
     <Animatable.View
-    className="mr-5"
-    animation={activeItem === item.$id ? zoomIn : zoomOut }
-    duration={500}
-    >
-    {play ? (
-      <Video
-      source={{uri:item.video}}
-  /*source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }} */
-  className="w-52 h-72 mt-3 bg-white/10"
-  resizeMode={ResizeMode.CONTAIN}
-  useNativeControls
-  shouldPlay
-  onPlaybackStatusUpdate={(status) => {
-    console.log("Playback Status: ", status);
-    if (status.didJustFinish) {
-      setPlay(false);
-    }
-  }}
+   
   onError={(error) => {
     console.error("Video playback error: ", error);
   }}
