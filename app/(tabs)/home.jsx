@@ -20,9 +20,9 @@ const Home = () => {
 
   const onRefresh = async () =>{
     setRefreshing(true)
-    
-    await refetch();
 
+    await refetch();
+    
     setRefreshing(false) 
   }
 

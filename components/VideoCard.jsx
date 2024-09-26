@@ -40,8 +40,8 @@ const VideoCard = ({
       </View>
       {play ? (
         <Video
-        /*source={{uri:video}}*/
-        source={{uri:'https://www.w3schools.com/html/mov_bbb.mp4'}}
+        source={{uri:video}}
+       /* source={{uri:'https://www.w3schools.com/html/mov_bbb.mp4'}}*/
         className="w-full h-60 mt-3"
         resizeMode={ResizeMode.CONTAIN}
         useNativeControls
