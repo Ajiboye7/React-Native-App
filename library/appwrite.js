@@ -296,7 +296,7 @@ export const getUserPosts = async(userId)=>{
 
 
 
-import { Client, Account, Avatars, ID, Databases, Query } from "react-native-appwrite";
+import { Client, Account, Avatars, ID, Databases, Query, Storage } from "react-native-appwrite";
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 
@@ -332,6 +332,7 @@ client
 const account = new Account(client);
 const avatars = new Avatars(client);
 const databases = new Databases(client);
+const storage = new Storage(client)
 
 export const createUser = async (email, password, username) => {
   try {
@@ -477,6 +478,75 @@ export const getUserPosts = async(userId)=>{
     return posts.documents;
   }catch(error){
     throw new Error(error)
+  }
+}
+
+
+
+export const getFilePreview = async (fileId, type) =>{
+  let fileUrl;
+
+  try{
+
+    if(type === 'video'){
+      fileUrl = storage.getFileView(storageId, fileId)
+    }else if(type === 'image'){
+      fileUrl = storage.getFilePreview(storageId, fileId, 2000, 2000, 'top', 100)
+    }else{
+      throw new Error ('Invalid file type')
+    }
+  
+    if(!fileUrl) throw Error
+
+    return fileUrl;
+  }catch(error){
+    throw new Error(error)
+  }
+  
+  
+}
+
+
+export const uploadFIle = async (file, type) =>{
+  const {mimeType, ...rest} = file
+  const asset = { type: mimeType, ...rest}
+  
+  try{
+    const uploadFIle = await storage.createFile(
+      storageId,
+      ID.unique(),
+      asset
+    );
+
+    const fileUrl = await getFilePreview(uploadFIle.$id, type);
+
+    return fileUrl;
+  }catch(error){
+    throw new Error(error)
+  }
+}
+
+
+export const createVideo = async (form) =>{
+  try{
+    const [thumbnailUrl, videoUrl] = await Promise.alla([
+      uploadFIle(form.thumbnail, 'image'),
+      uploadFIle(form.video, 'video'),
+    ])
+
+    const newPost = await databases.createDocument(
+      databaseId, videoCollectionId, ID.unique(),{
+        title: form.title,
+        thumbnail: thumbnailUrl,
+        video: videoUrl,
+        prompt: form.prompt,
+        creator: form.userId
+      }
+    )
+
+    return newPost
+  }catch(error){
+    throw new Error(error);
   }
 }
 

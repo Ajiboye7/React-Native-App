@@ -9,7 +9,7 @@ import { Video, ResizeMode } from "expo-av";
 import { icons } from "../../constants";
 import * as DocumentPicker from 'expo-document-picker'
 import { router } from "expo-router";
-
+import { createVideo } from "../../library/appwrite";
 const Create = () => {
   const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({
@@ -41,16 +41,19 @@ const Create = () => {
     }
   };
 
-  const submit = () => {
+  const submit = async () => {
     if (!form.prompt || !form.title || !form.thumbnail || !form.video) {
       return Alert.alert('Please fill in all the fields');
     }
 
     setUploading(true);
     try {
-      // Assume here you are uploading to the server
+
+      await createVideo({
+        ...form, userId: user.$id
+      })
       Alert.alert('Success', 'Post uploaded successfully');
-      router.push('/home');  // Replace with your actual navigation function
+      router.push('/home');  
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
