@@ -529,7 +529,7 @@ export const uploadFIle = async (file, type) =>{
 
 export const createVideo = async (form) =>{
   try{
-    const [thumbnailUrl, videoUrl] = await Promise.alla([
+    const [thumbnailUrl, videoUrl] = await Promise.all([
       uploadFIle(form.thumbnail, 'image'),
       uploadFIle(form.video, 'video'),
     ])
