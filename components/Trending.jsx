@@ -79,29 +79,4 @@ const TrendingItems = ({activeItem, item})=>{
 
 
 
-const Trending = ({posts}) => {
-  const [activeItem, setActiveItem] = useState(posts[1]);
-
-  const viewableItemChanged=({viewableItems})=>{
-    if(viewableItems.length>0){
-      setActiveItem (viewableItems[0].key)
-    }
-  }
-  return ( 
-    <FlatList
-      data={posts}
-      keyExtractor={(item)=> item.$id}
-      renderItem={({item})=>(
-       <TrendingItems activeItem={activeItem} item={item}/>
-      )}
-      onViewableItemsChanged={viewableItemChanged}
-      viewabilityConfig={{
-        itemVisiblePercentThreshold:70
-      }}
-      contentOffset={{x:170}}
-      horizontal
-    />
-  )
-}
-
-export default Trending
+con
