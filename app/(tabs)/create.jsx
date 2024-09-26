@@ -7,9 +7,10 @@ import CustomButton from "../../components/CustomButton";
 import { TouchableOpacity } from "react-native";
 import { Video, ResizeMode } from "expo-av";
 import { icons } from "../../constants";
+import * as DocumentPicker from 'expo-document-picker'
 
 const create = () => {
-  const [uploading, setUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);                                      
   const [form, setForm] = useState({
     title: "",
     video: null,
@@ -18,7 +19,11 @@ const create = () => {
   });
 
   const openPicker = async (selectType)=>{
-    
+    const result = await DocumentPicker.getDocumentAsync({
+      type: selectType === 'image'
+      ? ['image/png', 'image/jpg']
+      :['video/mp4']
+    })
   }
   const submit =()=>{
 
