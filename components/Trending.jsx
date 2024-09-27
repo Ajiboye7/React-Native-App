@@ -88,20 +88,3 @@ const Trending = ({posts}) => {
     }
   }
   return ( 
-    <FlatList
-      data={posts}
-      keyExtractor={(item)=> item.$id}
-      renderItem={({item})=>(
-       <TrendingItems activeItem={activeItem} item={item}/>
-      )}
-      onViewableItemsChanged={viewableItemChanged}
-      viewabilityConfig={{
-        itemVisiblePercentThreshold:70
-      }}
-      contentOffset={{x:170}}
-      horizontal
-    />
-  )
-}
-
-export default Trending
