@@ -10,6 +10,29 @@ export const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+
+
+
+  useEffect(() => {
+    // Call the getCurrentUser function
+     getCurrentUser()
+      .then((res) => {
+        if (res) {
+          setIsLoggedIn(true);
+          setUser(res);
+        } else {
+          setIsLoggedIn(false);
+          setUser(null);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching current user:', error);
+        setIsLoggedIn(false); 
+        setUser(null); 
+      })
+      .finally(() => {
+        setIsLoading(false); 
+      });
   }, []);
 
 
