@@ -111,182 +111,182 @@ const{
 const client = new Client();
 
 client
-  .setEndpoint(endpoint)
-  .setProject(projectId)
-  .setPlatform(platform);
+  .setEndpo
+  .setProje
+  .setPlatf
 
-const account = new Account(client);
-const avatars = new Avatars(client);
-const databases = new Databases(client);
+const accou
+const avata
+const datab;
 
-// Function to create a user
-export const createUser = async (email, password, username) => {
+// Function
+export cons password, username) => {
   try {
-    const newAccount = await account.create(ID.unique(), email, password, username);
+    const neate(ID.unique(), email, password, username);
 
-    if (!newAccount) throw new Error("Account creation failed");
+    if (!neccount creation failed");
 
-    const avatarUrl = avatars.getInitials(username);
+    const als(username);
 
-    await signIn(email, password); // Log the user in after creating the account
+    await sog the user in after creating the account
 
-    const newUser = await databases.createDocument(
-      databaseId,
-      userCollectionId,
-      ID.unique(),
+    const nateDocument(
+      datab
+      userC
+      ID.un
       {
-        accoundId: newAccount.$id, // Corrected typo
-        email,
-        username,
-        avatar: avatarUrl
+        accorrected typo
+        ema
+        use
+        ava
       }
     );
 
-    return newUser;
-  } catch (error) {
-    console.log("Error creating user:", error);
-    throw new Error(error.message);
+    return 
+  } catch (
+    console error);
+    throw n
   }
 };
 
-// Function to sign in a user
-export const signIn = async (email, password) => {
+// Function
+export conssword) => {
   try {
-    // Check if there are any active sessions
-    const sessions = await account.listSessions();
+    // Checssions
+    const sSessions();
 
-    if (sessions.total > 0) {
-      console.log('Session already active');
-      return sessions.sessions[0]; // Use the existing session
+    if (ses
+      consove');
+      returse the existing session
     }
 
-    // If no active session, create a new one
-    const session = await account.createEmailPasswordSession(email, password);
+    // If new one
+    const seEmailPasswordSession(email, password);
     
-    // Save the session in AsyncStorage
-    await AsyncStorage.setItem('@appwrite_session', JSON.stringify(session));
+    // Save
+    await Ate_session', JSON.stringify(session));
 
-    return session;
-  } catch (error) {
-    console.log('Sign in error:', error.message);
-    throw new Error(error.message);
+    return 
+  } catch (
+    console.message);
+    throw n
   }
 };
 
-// Function to log out (remove session)
-export const logOut = async () => {
+// Function
+export cons
   try {
-    const sessions = await account.listSessions();
+    const sSessions();
 
-    if (sessions.total > 0) {
-      // Remove the existing session
-      await account.deleteSession(sessions.sessions[0].$id);
+    if (ses
+      // Re
+      awaitons.sessions[0].$id);
     }
 
-    // Clear session from AsyncStorage
-    await AsyncStorage.removeItem('@appwrite_session');
-    console.log('Logged out successfully');
-  } catch (error) {
-    console.log('Logout error:', error.message);
+    // Clea
+    await Awrite_session');
+    consoley');
+  } catch (
+    consolemessage);
   }
 };
 
-// Function to retrieve the stored session
-export const getStoredSession = async () => {
+// Functionion
+export cons) => {
   try {
-    const storedSession = await AsyncStorage.getItem('@appwrite_session');
-    if (storedSession !== null) {
-      const session = JSON.parse(storedSession);
-      return session;
+    const sorage.getItem('@appwrite_session');
+    if (sto
+      constSession);
+      retur
     }
-  } catch (error) {
-    console.log('Error retrieving session:', error);
+  } catch (
+    consoleon:', error);
   }
-  return null;
+  return nu
 };
 
-// Function to get the current user based on stored session
-export const getCurrentUser = async () => {
+// Functioned on stored session
+export cons=> {
   try {
-    const session = await getStoredSession();
-    if (!session) {
-      console.log('No session found, user might not be logged in.');
-      throw new Error('No session found');
+    const sion();
+    if (!se
+      consoer might not be logged in.');
+      throw');
     }
 
-    const currentAccount = await account.get();
-    console.log("Current account:", currentAccount);
+    const ct.get();
+    consolerentAccount);
 
-    const currentUser = await databases.listDocuments(
-      config.databaseId,
-      config.userCollectionId,
-      [Query.equal('accoundId', currentAccount.$id)] 
+    const c.listDocuments(
+      confi
+      confi
+      [QuerAccount.$id)] 
     );
 
-    if (!currentUser || currentUser.documents.length === 0) {
-      console.log('User document not found, prompt sign-up');
-      throw new Error('User not found, please sign up again.');
+    if (!cuuments.length === 0) {
+      consound, prompt sign-up');
+      throwplease sign up again.');
     }
     
-    return currentUser.documents[0];
-  } catch (error) {
-    console.log('Error getting current user:', error.message);
-    throw error;
+    return 
+  } catch (
+    consoleuser:', error.message);
+    throw e
   }
 };
 
-export const getAllPosts = async()=>{
+export cons
   try{
-    const posts = await databases.listDocuments(
-      databaseId,
-      videoCollectionId
+    const pocuments(
+      datab
+      video
     )
 
-    return posts.documents;
-  }catch(error){
-    throw new Error(error)
+    return 
+  }catch(er
+    throw n
   }
 }
 
-export const getLatestPosts = async()=>{
+export cons{
   try{
-    const posts = await databases.listDocuments(
-      databaseId,
-      videoCollectionId,
-      [Query.orderDesc('$createdAt', Query.limit(7))]
+    const pocuments(
+      datab
+      video
+      [Querery.limit(7))]
     )
 
-    return posts.documents;
-  }catch(error){
-    throw new Error(error)
+    return 
+  }catch(er
+    throw n
   }
 }
 
-export const SearchPosts = async(query)=>{
+export cons=>{
   try{
-    const posts = await databases.listDocuments(
-      databaseId,
-      videoCollectionId,
-      [Query.search('title', query)]
+    const pocuments(
+      datab
+      video
+      [Quer
     )
 
-    return posts.documents;
-  }catch(error){
-    throw new Error(error)
+    return 
+  }catch(er
+    throw n
   }
 }
 
-export const getUserPosts = async(userId)=>{
+export consd)=>{
   try{
-    const posts = await databases.listDocuments(
-      databaseId,
-      videoCollectionId,
-      [Query.equal('creator', userId)]
+    const pocuments(
+      datab
+      video
+      [Quer
     )
 
-    return posts.documents;
-  }catch(error){
-    throw new Error(error)
+    return 
+  }catch(er
+    throw n
   }
 }
 */}
@@ -296,24 +296,24 @@ export const getUserPosts = async(userId)=>{
 
 
 
-import { Client, Account, Avatars, ID, Databases, Query, Storage } from "react-native-appwrite";
-import AsyncStorage from '@react-native-async-storage/async-storage'; 
+import { ClDatabases, Query, Storage } from "react-native-appwrite";
+import Asyn-async-storage/async-storage'; 
 
 
-export const config = {
-  endpoint: "https://cloud.appwrite.io/v1",
-  platform: "com.ajiboyedev.aora",
-  projectId: "66e168a900130ea9ac05",
-  databaseId: "66e16c380011e90b87d8",
-  userCollectionId: "66e16cbd00119938ab11",
-  videoCollectionId: "66e16d16001f8cb68304",
-  storageId: "66e171cd000fa61e0aba",
+export cons
+  endpoint:v1",
+  platform:
+  projectId
+  databaseI
+  userColle11",
+  videoColl304",
+  storageId
 };
 
 const{
-  endpoint,
-  platform,
-  databaseId,
+  endpoint
+  platform
+  databaseI
   userCollectionId,
   videoCollectionId,
   storageId,
