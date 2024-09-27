@@ -29,26 +29,6 @@ const VideoCard = ({
               className="text-white font-psemibold text-sm"
               numberOfLines={1}
             >
-              {title}
-            </Text>
-            <Text className="text-xs text-gray-100">{username}</Text>
-          </View>
-        </View>
-        <View className="pt-2">
-          <Image source={icons.menu} className="w-5 h-5" resizeMode="contain" />
-        </View>
-      </View>
-      {play ? (
-        <Video
-        source={{uri:video}}
-       /* source={{uri:'https://www.w3schools.com/html/mov_bbb.mp4'}}*/
-        className="w-full h-60 mt-3"
-        resizeMode={ResizeMode.CONTAIN}
-        useNativeControls
-        shouldPlay
-        onPlaybackStatusUpdate={(status)=>{
-          if(status.didJustFinish){
-            setPlay(false)
           }
         }}
       />
