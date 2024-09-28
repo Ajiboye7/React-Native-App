@@ -35,6 +35,19 @@ const layoutContent = `import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return (
+    <Stack>
+      <Stack.Screen name="index" />
+    </Stack>
+  );
+}
+`;
+
+fs.rename(oldDirPath, newDirPath, (error) => {
+  if (error) {
+    return console.error(`Error renaming directory: ${error}`);
+  }
+  console.log('/app moved to /app-example.');
+
   fs.mkdir(newAppDirPath, { recursive: true }, (error) => {
     if (error) {
       return console.error(`Error creating new app directory: ${error}`);
