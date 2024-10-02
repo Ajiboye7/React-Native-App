@@ -39,7 +39,6 @@ export default function HomeScreen() {
             />
           </View>
           <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">Where Creativity Meets Innovation: Embark on a Journey of Limitless Exploration with Aora</Text>
-
           <CustomButton
             title="Continue with Email"
             handlePress={()=> router.push('/sign-in')}

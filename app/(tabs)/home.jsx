@@ -22,7 +22,7 @@ const Home = () => {
     setRefreshing(true)
 
     await refetch();
-    
+     
     setRefreshing(false) 
   }
 
