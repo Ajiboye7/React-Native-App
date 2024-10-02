@@ -25,25 +25,6 @@ const SignUp = () => {
 
     setIsSubmitting(true);
 
-    try {
-      const result = await createUser(form.email, form.password, form.username);
-      setUser(result);
-      setIsLoggedIn(true);
-
-      router.replace("/home");
-    } catch (error) {
-      Alert.alert("Error", error.message);
-    } finally {
-      setIsSubmitting(false);
-    }
-    // return result
-  };
-
-  return (
-    <SafeAreaView className="bg-primary h-full px-3">
-      <ScrollView>
-        <View className="w-full justify-center min-h-[85vh]">
-          <Image
             source={images.logo}
             resizeMode="contain"
             className="w-[115px] h-[35px]"
