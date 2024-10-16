@@ -67,7 +67,6 @@ const SignUp = () => {
             otherStyles="mt-7"
             keyboardType="email-address"
           />
-
           <FormField
             title="Password"
             value={form.password}

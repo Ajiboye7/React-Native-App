@@ -12,26 +12,13 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 
 
 
-const Home = () => {
-  const { data: posts, refetch} = useAppwrite(getAllPosts)
-  const { data: Latestposts} = useAppwrite(getLatestPosts)
-  const[refreshing, setRefreshing] =useState(false);
-  const { user, setUser, setIsLoggedIn } = useGlobalContext();
 
-  const onRefresh = async () =>{
-    setRefreshing(true)
-
-    await refetch();
-     
-    setRefreshing(false) 
-  }
 
   
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
-        //data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
           <VideoCard video ={item}/>
