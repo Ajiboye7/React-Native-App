@@ -368,7 +368,17 @@ export const signIn = async (email, password) => {
     const sessions = await account.listSessions();
 
     if (sessions.total > 0) {
-      console
+      console.log('Session already active');
+      return sessions.sessions[0]; // Use the existing session
+    }
+
+    // If no active session, create a new one
+    const session = await account.createEmailPasswordSession(email, password);
+    
+    // Save the session in AsyncStorage
+    await AsyncStorage.setItem('@appwrite_session', JSON.stringify(session));
+
+    return session;
   } catch (error) {
     console.log('Sign in error:', error.message);
     throw new Error(error.message);
