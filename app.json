@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "package" : "com.ajiboyedev.aora"
+      "package": "com.ajiboyedev.aora"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +24,7 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "static", 
+      "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
@@ -32,6 +32,20 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ce15f27b-6e26-4dc6-a3aa-84bdcc2cb311"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ce15f27b-6e26-4dc6-a3aa-84bdcc2cb311"
     }
   }
 }
