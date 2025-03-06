@@ -26,11 +26,7 @@ export const GlobalProvider = ({ children }) => {
         }
       })
       .catch((error) => {
-        console.error('Error fetching current user:', error);
-        setIsLoggedIn(false); 
-        setUser(null); 
-      })
-      .finally(() => {
+      
         setIsLoading(false); 
       });
   }, []);

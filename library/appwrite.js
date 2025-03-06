@@ -359,7 +359,24 @@ export const createUser = async (email, password, username) => {
   } catch (error) {
     console.log(error);
     throw new Error(error.message);
-  }.stringify(session));
+  }
+};
+
+export const signIn = async (email, password) => {
+  try {
+    // Check if there are any active sessions
+    const sessions = await account.listSessions();
+
+    if (sessions.total > 0) {
+      console.log('Session already active');
+      return sessions.sessions[0]; // Use the existing session
+    }
+
+    // If no active session, create a new one
+    const session = await account.createEmailPasswordSession(email, password);
+    
+    // Save the session in AsyncStorage
+    await AsyncStorage.setItem('@appwrite_session', JSON.stringify(session));
 
     return session;
   } catch (error) {
