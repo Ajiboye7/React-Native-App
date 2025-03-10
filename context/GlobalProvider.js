@@ -35,15 +35,6 @@ export const GlobalProvider = ({ children }) => {
       });
   }, []);
 
-
-
-  return <GlobalContext.Provider   
-  value={{
-    isLoading,
-    isLoggedIn,
-    user,
-    setIsLoading,
-    setUser,
     setIsLoggedIn
   }}>
   {children}
