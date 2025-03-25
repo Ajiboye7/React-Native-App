@@ -44,9 +44,3 @@
     "runtimeVersion": {
       "policy": "appVersion"
     },
-    "updates": {
-      "url": "https://u.expo.dev/ce15f27b-6e26-4dc6-a3aa-84bdcc2cb311"
-    },
-    "newArchEnabled": true
-  }
-}
